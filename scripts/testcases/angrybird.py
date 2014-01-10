@@ -24,4 +24,4 @@ class AngrybirdTest(unittest.TestCase):
         d.expect('loaded.png', timeout=10)
         d.press('back')
         d.expect('ok.png', timeout=10)
-        d.click(1073,584)
+        d.click(1080,590)

@@ -3,7 +3,6 @@
 import unittest
 from devicewrapper.android import device as d
 import util as u
-import random
 
 class WeiboTest(unittest.TestCase):
     def setUp(self):
@@ -23,31 +22,32 @@ class WeiboTest(unittest.TestCase):
 
     def weibo(self, wifi):
         u.openWifi(d, wifi)
-        #assert d.exists(text='Weibo') , 'wechat app not appear on the home screen'
-        #assert d.exists(text='Apps')  , 'not appear on the home screen'
-        #d(text='Weibo').click.wait()
-        account = 'funnyborqs'
-        d.start_activity(component='com.sina.weibo/.SplashActivity')
-        assert d(description='MainEdit').wait.exists(timeout=10000), 'weibo client unable to open in 10 secs'
-
-        #if d.exists(text='Sent failed. It has been saved in the draft.'):
-        #    d(text='Sent failed. It has been saved in the draft.').click.wait()
-        #    d.press('back')
-        d.swipe(500, 500, 500, 1000)
-        d.sleep(5)
         
-        d(description='MainEdit').click.wait()
+        #Open sina weibo and check if successful
+        d.start_activity(component='com.sina.weibo/.SplashActivity')
+        assert d(className='android.widget.TextView', description="MainEdit").wait.exists(timeout=10000), 'weibo cient unable to open in 10 secs'
+
+        #Clear the 'sent fail' prompt
+        if d.exists(text='Sent failed. It has been saved in the draft.'):
+            d(text='Sent failed. It has been saved in the draft.').click.wait()
+            d.press('back')
+        
+        #Swipe to fetch new messages 3 times
+        for i in range(5):
+            #d.swipe(500, 500, 500, 1500, steps=15)
+            d(description='首页列表').click.wait()
+            d(className='android.widget.LinearLayout', index=0).click.wait()
+            #assert d(textStartsWith='Refreshing').wait.exists(timeout=3000), 'No Refreshing...'
+            #assert d(textStartsWith='Refreshing').wait.gone(timeout=60000), 'Refreshing fail in 60s'
+            d.sleep(5)
+        
+        #Compose new message
+        #Switch to message editor
+        d(className='android.widget.TextView', description="MainEdit").click.wait()
         assert d(className='android.widget.TextView', text="New Weibo").wait.exists(timeout=3000), 'unable to compose message'
         
-        n=random.randint(15, 30)
-        
-        d(className='android.widget.EditText').set_text(''.join(self.content(n)))
-        d(className='android.widget.TextView', text='Send').click.wait()
-        assert not d(text='Sent failed. It has been saved in the draft.').wait.exists(timeout=15000), 'msg send failed'
-        #assert d(className='android.widget.TextView', description="MainEdit").wait.exists(timeout=10000), 'unable to back to home screen in 10 secs'
-
-    def content(self, n):
-        s = ' !.,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-        return ''.join(random.sample(s, n))
-        
-
+        #Fetch and input random TEXT, and send the message
+        d(className='android.widget.EditText').set_text(u.fetchText())
+        d(text='Send', description='Send').click.wait()
+        assert not d(text='Sent failed. It has been saved in the draft.').wait.exists(timeout=10000), 'msg send failed'
+        assert d(className='android.widget.TextView', description="MainEdit").wait.exists(timeout=10000), 'unable to back to home screen in 10 secs'

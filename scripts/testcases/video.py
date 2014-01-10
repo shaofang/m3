@@ -15,19 +15,18 @@ class VideoTest(unittest.TestCase):
         u.backHome(d)
 
     def testVideoPlayer(self):
-        #Find and launch Video app
-        #assert d.exists(text='Video') , 'Video app not appear on the home screen'
-        #d(text='Video').click.wait()
+        #Start video player and check if successful
         d.start_activity(component='com.miui.video/.HomeActivity')
         assert d(text='我的视频').wait.exists(timeout=3000) , 'video app can not be launched.'
 
+        #Go to local video and start to play video
         d(text='我的视频').click.wait()
         assert d(text='bbb.mp4').wait.exists(timeout=3000) , 'Switch to local video.'
         d(text='bbb.mp4').click.wait()
         assert d(text='bbb.mp4').wait.gone(timeout=3000), 'Not switch to playing'
 
+        #Wait to finish playing and check if back to video list
         d.sleep(600)
         assert d(text='bbb.mp4').wait.exists(timeout=10000)
-        d.press('back')
         
 
