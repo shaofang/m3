@@ -20,8 +20,8 @@ class AngrybirdTest(unittest.TestCase):
         #assert d.exists(text='Apps')  , 'not appear on the home screen'
         #d(text='Angry Birds').click.wait()
         d.start_activity(component='com.rovio.angrybirdsstarwars.ads.iap/com.rovio.fusion.App')
-        d.sleep(30)
-        d.expect('loaded.png', timeout=10)
+        u.sleep(30)
+        d.expect('loaded.png', timeout=10, msg='failed to load')
         d.press('back')
-        d.expect('ok.png', timeout=10)
-        d.click(1080,590)
+        d.expect('ok.png', timeout=10, msg='failed to find ok button')
+        d.click(1060,590)

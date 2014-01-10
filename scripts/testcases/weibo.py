@@ -37,9 +37,7 @@ class WeiboTest(unittest.TestCase):
             #d.swipe(500, 500, 500, 1500, steps=15)
             d(description='首页列表').click.wait()
             d(className='android.widget.LinearLayout', index=0).click.wait()
-            #assert d(textStartsWith='Refreshing').wait.exists(timeout=3000), 'No Refreshing...'
-            #assert d(textStartsWith='Refreshing').wait.gone(timeout=60000), 'Refreshing fail in 60s'
-            d.sleep(5)
+            u.sleep(5)
         
         #Compose new message
         #Switch to message editor

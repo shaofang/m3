@@ -26,7 +26,7 @@ class VideoTest(unittest.TestCase):
         assert d(text='bbb.mp4').wait.gone(timeout=3000), 'Not switch to playing'
 
         #Wait to finish playing and check if back to video list
-        d.sleep(600)
+        u.sleep(600)
         assert d(text='bbb.mp4').wait.exists(timeout=10000)
         
 

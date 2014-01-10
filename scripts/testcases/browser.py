@@ -35,21 +35,20 @@ class BrowserTest(unittest.TestCase):
         d(className='android.widget.EditText').set_text('wap.qq.com')
         d.press('enter')
 
-        #Sleep 10s to wait loading web page
-        d.sleep(15)
+        #Sleep 15s to wait loading web page
+        u.sleep(15)
         flag = True
         i = 0
         while(flag and i < 9):
             i = i + 1
             d.swipe(400, 1000, 400, 500, steps=6)
-            d.sleep(5)
+            u.sleep(5)
             if not d.find('browser_blank.png'):
                 flag = False
         if flag:
             assert False, 'Open the web page failed in 60s.'
         else:
             assert True
-
 
 
 

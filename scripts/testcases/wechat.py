@@ -42,7 +42,7 @@ class WechatTest(unittest.TestCase):
         d.expect('conversation.png')
         d.click('conversation.png')
 
-        assert d(text='常见问题').wait.exists(timeout=3000), 'Switch to chat failed.'
+        assert d(text='常见问题').wait.exists(timeout=5000), 'Switch to chat failed.'
 
         #Clear chat history
         d.press('menu')
@@ -50,6 +50,7 @@ class WechatTest(unittest.TestCase):
         d(text='OK').click.wait()
 
         #Compose and send out a void message
+        d.expect('compose.png', timeout=10)
         d.click('compose.png')
         if d.find('voice.png'):
             d.click('voice.png')

@@ -72,14 +72,14 @@ class MessageTest(unittest.TestCase):
         d(text='Capture picture').click.wait()
         assert d(description='Shutter button').wait.exists(timeout=3000), 'no camera' 
         d(description='Shutter button').click.wait()
-        d.sleep(1)
+        u.sleep(1)
         d(className='android.widget.ImageView', index=1).click.wait()
-        assert d(text='MMS').wait.exists(timeout=3000), 'add attachment failed'
+        assert d(text='MMS').wait.exists(timeout=5000), 'add attachment failed'
 
         #Send MMS
         d(description='Send message').click.wait()
         assert d(text='Sending').wait.exists(timeout=5000), 'No sending status'
-        d.sleep(20)
+        u.sleep(20)
         assert d(text='Sending').wait.gone(timeout=70000), 'MMS sending failed in 90s'
 
 

@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*- 
 import random
 import json
+import time
 
 try:
     import urllib2
@@ -18,22 +19,22 @@ def openWifi(d, flag):
         if not wifi.checked:
             wifi.click.wait()
             assert d(className='android.widget.LinearLayout').child_by_text('WLAN').sibling(className='android.widget.CheckBox', checked=True).wait.exists(timeout=10000), "wifi can not be opened"
-            d.sleep(3)
+            sleep(3)
     #Should close the wifi
     else:
         if wifi.checked:
             wifi.click.wait()
             assert d(className='android.widget.LinearLayout').child_by_text('WLAN').sibling(className='android.widget.CheckBox', checked=False).wait.exists(timeout=10000), "wifi can not be closed"
-            d.sleep(3)
+            sleep(3)
         
     #Wait for network switching
     d.press('home')
 
 def backHome(d):
 	d.press('back')
-	d.sleep(1)
+	sleep(1)
 	d.press('back')
-	d.sleep(1)
+	sleep(1)
 	d.press('home')
 
 def fetchText():
@@ -66,4 +67,7 @@ def checkSystemWatchers(d):
     if d.watcher("AUTO_FC_WHEN_ANR").triggered:
         raise Exception('AUTO_FC_WHEN_ANR')
     d.watchers.remove()
+
+def sleep(sec):
+    time.sleep(sec)
 
