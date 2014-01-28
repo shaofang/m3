@@ -7,17 +7,16 @@ import util as u
 class VideoTest(unittest.TestCase):
     def setUp(self):
         super(VideoTest, self).setUp()
-        d.wakeup()
-        u.backHome(d)
+        u.setup(d)
 
     def tearDown(self):
         super(VideoTest, self).tearDown()
-        u.backHome(d)
+        u.teardown(d)
 
     def testVideoPlayer(self):
         #Start video player and check if successful
         d.start_activity(component='com.miui.video/.HomeActivity')
-        assert d(text='我的视频').wait.exists(timeout=3000) , 'video app can not be launched.'
+        assert d(text='我的视频').wait.exists(timeout=5000) , 'video app can not be launched.'
 
         #Go to local video and start to play video
         d(text='我的视频').click.wait()

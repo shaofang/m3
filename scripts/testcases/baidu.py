@@ -8,12 +8,11 @@ import util as u
 class BaiduTest(unittest.TestCase):
     def setUp(self):
         super(BaiduTest, self).setUp()
-        d.wakeup()
-        u.backHome(d)
+        u.setup(d)
 
     def tearDown(self):
         super(BaiduTest, self).tearDown()
-        u.backHome(d)
+        u.teardown(d)
 
     def testBaidumaps(self):
         #Check and set wifi
@@ -24,6 +23,10 @@ class BaiduTest(unittest.TestCase):
 
         if d(text='不要福利').wait.exists(timeout=3000):
             d(text='不要福利').click.wait()
+        if d(text='以后再说').wait.exists(timeout=5000):
+            d(text='以后再说').click.wait()
+        if d(text='以后再说').wait.exists(timeout=2000):
+            d(text='以后再说').click.wait()
 
         #Check if baidu map can be launched successfully
         assert d(text='附近').wait.exists(timeout=2000), 'No enter main map activity'

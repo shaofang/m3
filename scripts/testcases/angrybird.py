@@ -7,13 +7,11 @@ import util as u
 class AngrybirdTest(unittest.TestCase):
     def setUp(self):
         super(AngrybirdTest, self).setUp()
-        #d.start_activity(action='android.intent.action.DIAL', data='tel:13581739891', flags=0x04000000)
-        d.wakeup()
-        u.backHome(d)
+        u.setup(d)
 
     def tearDown(self):
         super(AngrybirdTest, self).tearDown()
-        u.backHome(d)
+        u.teardown(d)
 
     def testLaunch(self):
         #assert d.exists(text='Angry Birds') , 'wechat app not appear on the home screen'

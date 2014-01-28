@@ -8,14 +8,13 @@ import util as u
 class PhoneTest(unittest.TestCase):
     def setUp(self):
         super(PhoneTest, self).setUp()
-        d.wakeup()
-        u.backHome(d)
+        u.setup(d)
 
     def tearDown(self):
         super(PhoneTest, self).tearDown()
         if d(className='android.widget.Button', index=1):
             d(className='android.widget.Button', index=1).click.wait()
-        u.backHome(d)
+        u.teardown(d)
 
     def testMoCall(self):
         #Start dialer and confirm if dialer is launched

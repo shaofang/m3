@@ -7,12 +7,11 @@ import util as u
 class MessageTest(unittest.TestCase):
     def setUp(self):
         super(MessageTest, self).setUp()
-        d.wakeup()
-        u.backHome(d)
+        u.setup(d)
 
     def tearDown(self):
         super(MessageTest, self).tearDown()
-        u.backHome(d)
+        u.teardown(d)
 
     def testMO_MTSms(self):
         #Set receiver and msg content
@@ -72,7 +71,7 @@ class MessageTest(unittest.TestCase):
         d(text='Capture picture').click.wait()
         assert d(description='Shutter button').wait.exists(timeout=3000), 'no camera' 
         d(description='Shutter button').click.wait()
-        u.sleep(1)
+        u.sleep(3)
         d(className='android.widget.ImageView', index=1).click.wait()
         assert d(text='MMS').wait.exists(timeout=5000), 'add attachment failed'
 
