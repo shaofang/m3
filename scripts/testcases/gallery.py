@@ -22,9 +22,9 @@ class GalleryTest(unittest.TestCase):
         assert d(text='New', className='android.widget.TextView').wait.exists(timeout=5000), 'Switch to cloud images failed in 5s'
         
         #Select and open the cloud gallery
-        d.click(510,331)
+        d.click(767,507)
         u.sleep(2)
-        d.click(111,222)
+        d.click(130,290)
         u.sleep(3)
         for m in range(3):
             for i in range(5):

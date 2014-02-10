@@ -14,12 +14,10 @@ class AngrybirdTest(unittest.TestCase):
         u.teardown(d)
 
     def testLaunch(self):
-        #assert d.exists(text='Angry Birds') , 'wechat app not appear on the home screen'
-        #assert d.exists(text='Apps')  , 'not appear on the home screen'
-        #d(text='Angry Birds').click.wait()
+        #Launch game
         d.start_activity(component='com.rovio.angrybirdsstarwars.ads.iap/com.rovio.fusion.App')
         u.sleep(30)
-        d.expect('loaded.png', timeout=10, msg='failed to load')
+        d.expect('loaded.png', timeout=20, msg='failed to load')
         d.press('back')
         d.expect('ok.png', timeout=10, msg='failed to find ok button')
         d.click(1060,590)

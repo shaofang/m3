@@ -23,13 +23,13 @@ class MessageTest(unittest.TestCase):
         assert d(text='Messages').wait.exists(timeout=3000), 'can not launch message in 3s'
 
         #Delete messages if there is any message.
-        if not d(text="No conversations.").wait.exists(timeout=2000):
+        if not d(textStartsWith="No conversations").wait.exists(timeout=2000):
             d(className='android.view.View').long_click()
-            if d(text="Check All").wait.exists(timeout=3000):
-                d(text="Check All").click.wait()
-            d(text="Delete").click.wait()
-            d(text="Delete").click.wait()
-            assert d(text="No conversations.").wait.exists(timeout=3000), 'Delete messages failed'
+            if d(text='Select all').wait.exists(timeout=3000):
+                d(text='Select all').click.wait()
+            d(text='Delete').click.wait()
+            d(text='Delete').click.wait()
+            assert d(textStartsWith="No conversations").wait.exists(timeout=10000), 'Delete messages failed'
 
         #Compose message
         d(text='New message').click.wait()
@@ -38,8 +38,10 @@ class MessageTest(unittest.TestCase):
         d(className='android.widget.EditText', index=1).set_text(str_content)
         assert d(text=str_content).wait.exists(timeout=10000), 'content input error'            
         d(description='Send message').click.wait()
-        assert d(text='Received').wait.exists(timeout=20000), 'sms sending failed in 20s'
-        assert d(textStartsWith='尊敬的').wait.exists(timeout=30000), 'No feedback in 30s'
+        assert d(text='Sending').wait.exists(timeout=3000), 'Not begin to sending in 3s'
+        assert d(text='Sending').wait.gone(timeout=20000), 'sms sending failed in 20s'
+        #assert d(text='Received').wait.exists(timeout=20000), 'sms sending failed in 20s'
+        #assert d(textStartsWith='尊敬的').wait.exists(timeout=30000), 'No feedback in 30s'
 
     def testMoMMS(self):
         #Set receiver and msg content

@@ -21,6 +21,8 @@ class CameraTest(unittest.TestCase):
         #Take picture
         d(description='Shutter button').click.wait()
         u.sleep(5)
+        d(description='Shutter button').click.wait()
+        u.sleep(5)
 
         #Delete the recent picture
         d(description='Most recent photo').click.wait()
