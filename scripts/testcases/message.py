@@ -38,7 +38,8 @@ class MessageTest(unittest.TestCase):
         d(className='android.widget.EditText', index=1).set_text(str_content)
         assert d(text=str_content).wait.exists(timeout=10000), 'content input error'            
         d(description='Send message').click.wait()
-        assert d(text='Sending').wait.exists(timeout=3000), 'Not begin to sending in 3s'
+        #assert d(text='Sending').wait.exists(timeout=3000), 'Not begin to sending in 3s'
+        u.sleep(3)
         assert d(text='Sending').wait.gone(timeout=20000), 'sms sending failed in 20s'
         #assert d(text='Received').wait.exists(timeout=20000), 'sms sending failed in 20s'
         #assert d(textStartsWith='尊敬的').wait.exists(timeout=30000), 'No feedback in 30s'
