@@ -29,7 +29,7 @@ class ContactTest(unittest.TestCase):
         #New contact
         d(text='New contact', className='android.widget.Button').click.wait()
 
-        d(text='Create  contact', className='android.widget.TextView').wait.exists(timeout=5000), 'Can not switch to create contact activity in 5s'
+        assert d(text='Add  contact', className='android.widget.TextView').wait.exists(timeout=5000), 'Can not switch to create contact activity in 5s'
         d(text='Name', className='android.widget.EditText').set_text(c_name)
         assert d(text=c_name), 'Input name failed.'
         d(text='Phone', className='android.widget.EditText').set_text(c_number)
